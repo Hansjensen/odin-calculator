@@ -21,6 +21,7 @@ let displayValue = "0"
 let runningValue = null
 let tempValue = null
 let prevop = 0
+let dec = 0
 display.textContent = displayValue;
 
 buttOne.addEventListener('click', function (e) {
@@ -67,8 +68,11 @@ buttThree.addEventListener('click', function (e) {
   buttDec.addEventListener('click', function (e) {
     if (displayValue == 0) {
         return;
+    } else if (dec === 1) {
+      return;  
     } else {
     displayFunction(".");
+    dec = 1;
     }
   });
 
@@ -89,6 +93,7 @@ buttThree.addEventListener('click', function (e) {
     runningValue = null
     tempValue = null
     prevop = 0
+    dec=0;
     display.textContent = displayValue;
   });
 
@@ -129,6 +134,7 @@ function operate(a) {
     display.textContent = tempValue;
     displayValue = 0;
     prevop = a;
+    dec=0;
     return;
     } else if (runningValue === null) {
         if (prevop === 1){
@@ -174,6 +180,7 @@ function operate(a) {
     display.textContent = runningValue;     
     displayValue = 0;
     prevop = a;
+    dec = 0;
     return;
     
     
