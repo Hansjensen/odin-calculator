@@ -11,15 +11,16 @@ const buttZero = document.getElementById("0");
 const buttClear = document.getElementById("clear");
 const buttDelete = document.getElementById("delete");
 const buttDec = document.getElementById(".");
-const opAdd = document.getElementById("add");
+const oppAdd = document.getElementById("add");
 const oppSubtract = document.getElementById("subtract");
 const oppDivide = document.getElementById("div");
 const oppMultiply = document.getElementById("mult");
 const oppEqual = document.getElementById("equal");
 const display = document.getElementById("display");
 let displayValue = "0"
-let runningValue = 0
+let runningValue = null
 let tempValue = null
+let prevop = 0
 display.textContent = displayValue;
 
 buttOne.addEventListener('click', function (e) {
@@ -87,17 +88,29 @@ buttThree.addEventListener('click', function (e) {
      displayValue = "0"
     runningValue = null
     tempValue = null
+    prevop = 0
     display.textContent = displayValue;
   });
 
-  opAdd.addEventListener('click', function (e) {
+  oppAdd.addEventListener('click', function (e) {
     operate(1);
   });
 
-  opSubtract.addEventListener('click', function (e) {
+  oppSubtract.addEventListener('click', function (e) {
     operate(2);
   });
-  
+
+  oppMultiply.addEventListener('click', function (e) {
+    operate(3);
+  });
+
+  oppDivide.addEventListener('click', function (e) {
+    operate(4);
+  });
+
+  oppEqual.addEventListener('click', function (e) {
+    operate(5);
+  });
 
 function displayFunction(a) {
     if (displayValue.length >= 8) {
@@ -115,24 +128,53 @@ function operate(a) {
     tempValue = displayValue ;
     display.textContent = tempValue;
     displayValue = 0;
+    prevop = a;
     return;
     } else if (runningValue === null) {
-        if (a === 1){
+        if (prevop === 1){
             runningValue = add(tempValue, displayValue);
-            display.textContent = runningValue;
-            displayValue = 0;
 
-        } else if (a === 2) {
-
-        }
-    } else {
-        if (a === 1) {
+        } else if (prevop === 2) {
+            runningValue = subtract(tempValue, displayValue);
+        
+        } else if (prevop === 3) {
+            runningValue = multiply(tempValue, displayValue);
+            
+        } else if (prevop === 4) {
+            runningValue = divide(tempValue, displayValue);
+            
+        } 
+    } else if (a === 5) {
+        if (prevop === 1) {
             runningValue = add(runningValue, displayValue);
-            display.textContent = runningValue;
-            displayValue = 0;
-
-        }
-    }
+          
+        } else if (prevop === 2) {
+            runningValue = subtract(runningValue, displayValue);
+          
+        } else if (prevop === 3) {
+            runningValue = multiply(runningValue, displayValue);
+        } else if (prevop === 4) {
+            runningValue = divide(runningValue, displayValue);
+        } 
+    } else {
+        if (prevop === 1) {
+            runningValue = add(runningValue, displayValue);
+          
+        } else if (prevop === 2) {
+            runningValue = subtract(runningValue, displayValue);
+          
+        } else if (prevop === 3) {
+            runningValue = multiply(runningValue, displayValue);
+        } else if (prevop === 4) {
+            runningValue = divide(runningValue, displayValue);
+        } 
+    } 
+    
+    
+    display.textContent = runningValue;     
+    displayValue = 0;
+    prevop = a;
+    return;
     
     
 }
