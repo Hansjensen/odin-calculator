@@ -18,6 +18,7 @@ const oppMultiply = document.getElementById("mult");
 const oppEqual = document.getElementById("equal");
 const display = document.getElementById("display");
 let displayValue = "0"
+let runningValue = "0"
 display.textContent = displayValue;
 
 buttOne.addEventListener('click', function (e) {
@@ -70,13 +71,24 @@ buttThree.addEventListener('click', function (e) {
   });
 
   buttDelete.addEventListener('click', function (e) {
+    if (displayValue == 0) {
+        return;
+    } else if (displayValue.length === 1) {
+        displayValue = 0;
+        display.textContent = displayValue;
+    } else {
     displayValue = displayValue.slice(0,-1);
     display.textContent = displayValue;
+    }
   });
 
   buttClear.addEventListener('click', function (e) {
     displayValue = "0"
     display.textContent = displayValue;
+  });
+
+  opAdd.addEventListener('click', function (e) {
+    operate(1);
   });
 
 
@@ -91,7 +103,18 @@ function displayFunction(a) {
     return display.textContent = displayValue;
 };
 
-
+function operate(a) {
+    if (runningValue == 0) {
+    runningValue = displayValue ;
+    
+    return;
+    } else if (a === 1){
+        runningValue = runningValue + displayValue;
+        console.log(runningValue)
+        return;
+    }
+    
+}
 
 
 
