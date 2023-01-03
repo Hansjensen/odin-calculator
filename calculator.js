@@ -66,9 +66,7 @@ buttThree.addEventListener('click', function (e) {
   });
 
   buttDec.addEventListener('click', function (e) {
-    if (displayValue == 0) {
-        return;
-    } else if (dec === 1) {
+     if (dec === 1) {
       return;  
     } else {
     displayFunction(".");
@@ -114,6 +112,9 @@ buttThree.addEventListener('click', function (e) {
   });
 
   oppEqual.addEventListener('click', function (e) {
+    if (tempValue === null) {
+        return;
+    }
     operate(5);
   });
 
@@ -129,7 +130,7 @@ function displayFunction(a) {
 };
 
 function operate(a) {
-    if (tempValue === null) {
+    if (tempValue === null ) {
     tempValue = displayValue ;
     display.textContent = tempValue;
     displayValue = 0;
@@ -176,11 +177,17 @@ function operate(a) {
         } 
     } 
     
+    if (runningValue % 1 != 0) {
+        runningValue = round.math(100*runningValue)/100;
+    }
     
-    display.textContent = runningValue;     
+    display.textContent = runningValue     
     displayValue = 0;
     prevop = a;
     dec = 0;
+    if (runningValue.toString().length > 10) {
+        display.textContent = "eRROR"
+    }
     return;
     
     
