@@ -18,7 +18,8 @@ const oppMultiply = document.getElementById("mult");
 const oppEqual = document.getElementById("equal");
 const display = document.getElementById("display");
 let displayValue = "0"
-let runningValue = "0"
+let runningValue = 0
+let tempValue = null
 display.textContent = displayValue;
 
 buttOne.addEventListener('click', function (e) {
@@ -83,7 +84,9 @@ buttThree.addEventListener('click', function (e) {
   });
 
   buttClear.addEventListener('click', function (e) {
-    displayValue = "0"
+     displayValue = "0"
+    runningValue = null
+    tempValue = null
     display.textContent = displayValue;
   });
 
@@ -91,6 +94,10 @@ buttThree.addEventListener('click', function (e) {
     operate(1);
   });
 
+  opSubtract.addEventListener('click', function (e) {
+    operate(2);
+  });
+  
 
 function displayFunction(a) {
     if (displayValue.length >= 8) {
@@ -104,15 +111,29 @@ function displayFunction(a) {
 };
 
 function operate(a) {
-    if (runningValue == 0) {
-    runningValue = displayValue ;
-    
+    if (tempValue === null) {
+    tempValue = displayValue ;
+    display.textContent = tempValue;
+    displayValue = 0;
     return;
-    } else if (a === 1){
-        runningValue = runningValue + displayValue;
-        console.log(runningValue)
-        return;
+    } else if (runningValue === null) {
+        if (a === 1){
+            runningValue = add(tempValue, displayValue);
+            display.textContent = runningValue;
+            displayValue = 0;
+
+        } else if (a === 2) {
+
+        }
+    } else {
+        if (a === 1) {
+            runningValue = add(runningValue, displayValue);
+            display.textContent = runningValue;
+            displayValue = 0;
+
+        }
     }
+    
     
 }
 
@@ -120,19 +141,31 @@ function operate(a) {
 
 
 function add(a, b) {
-    return a+b;
+    let c = parseFloat(a);
+    let d = parseFloat(b);
+    
+    return c+d;
 };
 
 function subtract(a,b) {
-    return a-b;
+    let c = parseFloat(a);
+    let d = parseFloat(b);
+    
+    return c-d;
 };
 
 function multiply(a,b) {
-    return a*b;
+    let c = parseFloat(a);
+    let d = parseFloat(b);
+    
+    return c*d;
 };
 
 function divide(a,b) {
-    return a/b;
+    let c = parseFloat(a);
+    let d = parseFloat(b);
+    
+    return c/d;
 };
 
 
